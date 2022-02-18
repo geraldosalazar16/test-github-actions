@@ -9,14 +9,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set tag env
-        run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
       - name: Set curent version env
         uses: actions/github-script@0.9.0
         with:
           script: |
-            const currentVersion = "$TAG".split('-')[0]
+            const tag = ${{github.ref_name}}
+            const currentVersion = tag.split('-')[0]
             core.setOutput('currentVersion', currentVersion)
       - name: Display version
         run: |
