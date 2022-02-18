@@ -1,28 +1,15 @@
-# Update the ingress controller configuration so production service points to the latest version of the API
-name: Update prod blue version
-
-# Trigger deployment when there is a push to main with a version tag
 on:
   push:
-    branches:
-      - main
     tags:
-      - update-blue-from*
-
+      - 'update-blue-from*'
 jobs:
-  setup-and-deploy:
-    name: Update prod blue version
+  test:
     runs-on: ubuntu-latest
-
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Set env
-        run: |-
-          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
+        run: |
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
