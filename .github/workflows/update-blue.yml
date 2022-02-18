@@ -10,7 +10,7 @@ jobs:
       - name: Set tag env
         run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - name: Set curent version env
-        run: echo "CURRENT_VERSION=${TAG}" >> $GITHUB_ENV
+        run: echo "CURRENT_VERSION=${TAG#update-blue-from}" >> $GITHUB_ENV
       - name: Display version
         run: |
           echo $CURRENT_VERSION
