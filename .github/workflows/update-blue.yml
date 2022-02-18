@@ -14,8 +14,8 @@ jobs:
         with:
           script: |
             const tag = ${{github.ref_name}}
-            const currentVersion = tag.split('-')[0]
-            core.setOutput('currentVersion', currentVersion)
+            // const currentVersion = tag.split('-')[0]
+            core.setOutput('currentVersion', tag)
       - name: Display version
         run: |
           echo echo "${{steps.get-currentVersion.outputs.currentVersion}}"
